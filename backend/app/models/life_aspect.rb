@@ -1,0 +1,2 @@
+class LifeAspect < ApplicationRecord
+end
