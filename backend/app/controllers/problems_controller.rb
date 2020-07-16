@@ -28,7 +28,7 @@ class ProblemsController < ApplicationController
 
   def destroy 
     problem = Problem.find(params[:id])
-    problem.delete
+    problem.destroy
     render json: {problemId: problem.id}
   end
 

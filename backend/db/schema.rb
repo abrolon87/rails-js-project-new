@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_210327) do
+ActiveRecord::Schema.define(version: 2020_07_16_213000) do
 
   create_table "life_aspects", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "problems", force: :cascade do |t|
+    t.text "body"
+    t.date "date"
+    t.integer "life_aspect_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["life_aspect_id"], name: "index_problems_on_life_aspect_id"
   end
 
 end
