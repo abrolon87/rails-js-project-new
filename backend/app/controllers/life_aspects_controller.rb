@@ -3,13 +3,13 @@ class LifeAspectsController < ApplicationController
   def index
     life_aspects = LifeAspect.all 
 
-    render json: life_aspects, status: 200
+    render json: life_aspects, include: [:problems], status: 200
   end
 
   def show 
     life_aspect = LifeAspect.find(params[:id])
 
-    render json: life_aspect, status: 200
+    render json: life_aspect, include: [:problems], status: 200
   end
 
   def create
