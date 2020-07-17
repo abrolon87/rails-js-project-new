@@ -27,6 +27,7 @@ const renderLifeAspect = (lifeAspectHash) => {
   p.innerHTML = lifeAspectHash.name
   button.setAttribute("data-life-aspect-id", lifeAspectHash["id"])
   button.innerHTML = "Add Problem"
+  button.addEventListener("click", createProblem)
   //attach event listener to button
 
   div.appendChild(p)
@@ -39,5 +40,25 @@ const renderLifeAspect = (lifeAspectHash) => {
 }
 
 const renderProblem = (problem) => {
+  const ul = document.querySelector(`div[data-id="${problem.life_aspect_id}"]`)
+  const li = document.createElement("li")
+  const button = document.createElement("button")
+
+  li.innerHTML = `${problem.body} - ${problem.date}`
+  button.setAttribute("class", "delete")
+  button.setAttribute("data-problem-id", problem.id)
+  button.innerHTML = "Delete"
+  button.addEventListener("click", deleteProblem)
+
+
+  li.appendChild(button)
+  ul.appendChild(li)
+}
+
+const createProblem = () => {
+
+}
+
+const deleteProblem = () = {
   
 }
