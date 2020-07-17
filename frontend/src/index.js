@@ -55,10 +55,38 @@ const renderProblem = (problem) => {
   ul.appendChild(li)
 }
 
-const createProblem = () => {
-
+const createProblem = (event) => {
+  event.preventDefault()
+  const configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({life_aspect_id: event.target.dataset.lifeAspectId})
+  }
+  fetch(PROBLEMS_URL, configObj)
+  .then(result = result.json())
+  .then(json => {
+    if (json.message){
+      alert(json.message)
+    } else {
+      renderProblem(json)
+    
+    }
+  })
 }
 
-const deleteProblem = () = {
-  
+const deleteProblem = (event) => {
+  event.preventDefault()
+  const configObj = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    //body: JSON.stringify({life_aspect_id: event.target.dataset.lifeAspectId})
+  }
+  fetch(`${PROBLEMS_URL}/${event.target.dataset.problemId}`, configObj)
+  event.target.parentElement.remove() 
 }
