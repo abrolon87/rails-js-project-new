@@ -11,18 +11,12 @@ function getProblems() {
   fetch(BASE_URL+"/problems")
   .then(resp => resp.json())
   .then(problems => {
-      ul.innerHTML += problems.map(problem => `
-        <li id="problemLi-${problem.id}">
-          <a href="#" data-id="${problem.id}">${problem.life_aspect.name} - ${problem.body}</a>
-          <ol id="problems-list"> 
-            
-          </ol>
-        </li>
+      problems.forEach(problem => {
+        const newProblem = new Problem(problem)
+
+        ul.innerHTML += newProblem.render() 
+      })
       
-      `).join('')
-      // main.innerHTML += li 
-      // let ol = document.querySelector(`li#life-aspectLi-${life_aspect.id} #problems-list`)
-      // life_aspect.problems.forEach(problem => ol.innerHTML += `<li data-problem-id='${problem.id}'>${problem.body}</li>`)
       attachClickLinks()
     })
       
@@ -135,101 +129,4 @@ function createProblem() {
   })
 }
 
-// const app = new App()
-// console.log('app loaded')
 
-
-// function getLifeAspects() {
-//   return fetch(this.baseURL)
-//   .then(resp => resp.json()
-//   )
-// }
-
-// const LIFE_ASPECTS_URL = `${BASE_URL}/life_aspects`
-// const PROBLEMS_URL = `${BASE_URL}/problems`
-// const main = document.querySelector("main")
-
-
-
-// const loadLifeAspects = () => {
-//   const LIFE_ASPECTS_URL = `${BASE_URL}/life_aspects`
-//     
-//     })
-
-// }
-
-// const renderLifeAspect = (lifeAspectHash) => {
-//   const div = document.createElement("div")
-//   const p = document.createElement("p")
-//   const button = document.createElement("button")
-//   const ul = document.createElement("ul")
-
-//   div.setAttribute("class", "card") //creates cards
-//   div.setAttribute("data-id", lifeAspectHash["id"]) // .id
-//   //div.setAttribute("class", "card")
-//   p.innerHTML = lifeAspectHash.name
-//   button.setAttribute("data-life-aspect-id", lifeAspectHash["id"])
-//   button.innerHTML = "Add Problem"
-//   button.addEventListener("click", createProblem)
-//   //attach event listener to button
-
-//   div.appendChild(p)
-//   div.appendChild(button)
-//   div.appendChild(ul)
-
-//   main.appendChild(div)
-
-//   lifeAspectHash.problems.forEach(problem => renderProblem(problem))
-// }
-
-// const renderProblem = (problem) => {
-//   const ul = document.querySelector(`div[data-id="${problem.life_aspect_id}"]`)
-//   const li = document.createElement("li")
-//   const button = document.createElement("button")
-
-//   li.innerHTML = `${problem.body} - ${problem.date}`
-//   button.setAttribute("class", "delete")
-//   button.setAttribute("data-problem-id", problem.id)
-//   button.innerHTML = "Delete"
-//   button.addEventListener("click", deleteProblem)
-
-
-//   li.appendChild(button)
-//   ul.appendChild(li)
-// }
-
-// const createProblem = (event) => {
-//   event.preventDefault()
-//   const configObj = {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept": "application/json"
-//     },
-//     body: JSON.stringify({life_aspect_id: event.target.dataset.lifeAspectId})
-//   }
-//   fetch(PROBLEMS_URL, configObj)
-//   .then(result = result.json())
-//   .then(json => {
-//     if (json.message){
-//       alert(json.message)
-//     } else {
-//       renderProblem(json)
-    
-//     }
-//   })
-// }
-
-// const deleteProblem = (event) => {
-//   event.preventDefault()
-//   const configObj = {
-//     method: "DELETE",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept": "application/json"
-//     },
-//     //body: JSON.stringify({life_aspect_id: event.target.dataset.lifeAspectId})
-//   }
-//   fetch(`${PROBLEMS_URL}/${event.target.dataset.problemId}`, configObj)
-//   event.target.parentElement.remove() 
-// }
