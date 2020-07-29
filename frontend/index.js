@@ -1,26 +1,8 @@
 const BASE_URL = 'http://localhost:3000'
 
 window.addEventListener('load', () => {
-  getProblems()
+  Problem.getProblems()
 })
-
-function getProblems() {
-  clearForm() 
-  clearPage()
-  const ul = document.querySelector('#list')
-  fetch(BASE_URL+"/problems")
-  .then(resp => resp.json())
-  .then(problems => {
-      problems.forEach(problem => {
-        const newProblem = new Problem(problem)
-
-        ul.innerHTML += newProblem.render() 
-      })
-      
-      attachClickLinks()
-    })
-      
-}
 
 function clearForm() {
   let problemFormDiv = document.getElementById('problem-form')
@@ -40,23 +22,9 @@ function attachClickLinks() {
     problem.addEventListener('click', displayProblem)
   })
   document.getElementById('problemForm').addEventListener('click', displayCreateForm)
-  document.getElementById('problems').addEventListener('click', getProblems)
+  document.getElementById('problems').addEventListener('click', Problem.getProblems)
+  document.getElementById('sort').addEventListener('click', Problem.sortProblems)
 
-}
-
-function displayProblem() {
-  clearForm() 
-  let id = event.target.dataset.id 
-  clearPage()
-  let show = document.querySelector('#show')
-  fetch(BASE_URL+'/problems/'+id)
-  .then(resp => resp.json())
-  .then(problem => {
-    show.innerHTML += `
-      <p>${problem.body}</p>
-      <p>${problem.date}</p>  
-      <p>${problem.solved ? "Solved" : "On-going"}</p>  `
-  })
 }
 
 function displayCreateForm() {
@@ -77,7 +45,6 @@ function displayCreateForm() {
       ${lao}
       </select>
       
-      
       <label>Problem: </label>
       <input type="text" id="problem-body">
 
@@ -91,42 +58,10 @@ function displayCreateForm() {
   `
 
   problemFormDiv.innerHTML = html 
-  document.querySelector('form').addEventListener('submit', createProblem)
+  document.querySelector('form').addEventListener('submit', Problem.createProblem)
   })
 }
 
-function createProblem() {
-  event.preventDefault()
-  let sel = document.querySelector('#life-aspect-dropdown')
-  const problem = {
-    life_aspect_id: sel.options[sel.selectedIndex].value,
-    date: document.querySelector('#date').value,
-    body: document.getElementById('problem-body').value,
-    solved: document.getElementById('solved').checked
-  }
 
-  fetch(BASE_URL+'/problems', {
-    method: "POST",
-    body: JSON.stringify(problem),
-    headers: {
-      'Content-type': 'application/json',
-      'Accept': 'application/json'
-    }
-  })
-  .then(resp => resp.json())
-  .then(problem => {
-    let ul = document.querySelector('#main ul') 
-    ul.innerHTML += `
-    <li id="problemLi-${problem.id}">
-          <a href="#" data-id="${problem.id}">${problem.life_aspect.name} - ${problem.body}</a>
-          <ol id="problems-list"> 
-            
-          </ol>
-        </li>
-    `
-    attachClickLinks()
-    clearForm()
-  })
-}
 
 
