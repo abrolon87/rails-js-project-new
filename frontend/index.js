@@ -23,8 +23,7 @@ function attachClickLinks() {
   })
   document.getElementById('problemForm').addEventListener('click', displayCreateForm)
   document.getElementById('problems').addEventListener('click', Problem.getProblems)
-  //document.getElementById('sort').addEventListener('click', Problem.sortProblems)
-
+  document.getElementById('sort').addEventListener('click', Problem.sortProblems)
 }
 
 function displayCreateForm() {
@@ -39,7 +38,6 @@ function displayCreateForm() {
   
   let html = `
     <form> 
-
       <label>Choose a Life Aspect</label>
       <select id="life-aspect-dropdown" name="life-aspect">
       ${lao}
