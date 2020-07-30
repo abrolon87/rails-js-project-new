@@ -2,7 +2,7 @@
 
 
 
-- finichs sorting
+- finish sorting
 - refactor to make use of Problem 
 - when creating a new problem object, then use render method, instead duplicate code.
 

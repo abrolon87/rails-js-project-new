@@ -23,7 +23,7 @@ function attachClickLinks() {
   })
   document.getElementById('problemForm').addEventListener('click', displayCreateForm)
   document.getElementById('problems').addEventListener('click', Problem.getProblems)
-  document.getElementById('sort').addEventListener('click', Problem.sortProblems)
+  //document.getElementById('sort').addEventListener('click', Problem.sortProblems)
 
 }
 
@@ -58,7 +58,7 @@ function displayCreateForm() {
   `
 
   problemFormDiv.innerHTML = html 
-  document.querySelector('form').addEventListener('submit', Problem.createProblem)
+  document.querySelector('form').addEventListener('submit', createProblem)
   })
 }
 
